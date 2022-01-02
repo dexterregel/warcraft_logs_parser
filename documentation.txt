@@ -1,0 +1,30 @@
+
+This script collects a character's performance stats from a provided Warcraft Logs report
+Information is not collected for wipes. The following stats are collected for each kill:
+	Boss name
+	The fight's date
+	The fight's duration
+	The character's parse
+	The character's active time
+	The character's DPS
+	If the character died
+	If brez was used
+
+Setting up the script:
+	Install any version of Python 3
+		Be sure to add Python to the PATH environment variable.	The install should ask about doing that for you
+	This script currently only works with Firefox. Download the appropriate version of its WebDriver from:
+		https://github.com/mozilla/geckodriver/releases
+ 	Place the WebDriver (the geckodriver.exe file) in Python's installation directory, e.g. C:\Program Files\Python310 (or another directory in the PATH environment variable, or just put it somewhere and at that location to PATH)
+	Install the selenium module by opening a command prompt and running:
+		python -m pip install selenium
+
+Running the script:
+	Put the main.py, functions.py, and frame.py files anywhere all within the same folder
+	Open a command prompt to the directory that has the script files
+	Enter and run the following:
+		python main.py logUrl charName
+	Where logUrl is the URL of the log, and charName is the name of the character to collect stats of
+	For example:
+		python main.py https://classic.warcraftlogs.com/reports/RrkfdNx8p9hcWtGM Eighchbar
+	At the end of the script, a text file with the collected stats will be created in the same directory as the script files
