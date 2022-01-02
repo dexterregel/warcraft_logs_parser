@@ -1,7 +1,7 @@
 
 This script collects a character's performance stats from a provided Warcraft Logs report
 Information is not collected for wipes. The following stats are collected for each kill:
-	Boss name
+	The boss' name
 	The fight's date
 	The fight's duration
 	The character's parse
@@ -9,6 +9,7 @@ Information is not collected for wipes. The following stats are collected for ea
 	The character's DPS
 	If the character died
 	If brez was used
+	Faerie Fire uptime
 
 Setting up the script:
 	Install any version of Python 3

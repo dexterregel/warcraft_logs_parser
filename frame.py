@@ -1,32 +1,34 @@
 
 # Global
-bossNameXpath = "//div[@id='filter-fight-boss-text']"
-fightDurXpath = "//div[@id='report-top-bar']//span[@class='fight-duration']"
-mainTableRow = "//table[@id='main-table-0']/tbody/tr"
-mainTableHeader = "//table[@id='main-table-0']/thead"
-cookieConsentBannerDismissButton = "//a[@class='cc-btn cc-dismiss']"
+loc_bossName = "//div[@id='filter-fight-boss-text']"
+loc_fightDur = "//div[@id='report-top-bar']//span[@class='fight-duration']"
+loc_mainTableRow = "//table[@id='main-table-0']/tbody/tr"
+loc_mainTableHeader = "//table[@id='main-table-0']/thead"
+loc_cookieConsentBannerDismissBtn = "//a[@class='cc-btn cc-dismiss']"
+loc_fightDate = "//span[@id='reportdate']"
 
 
 # Main log page
-fightDateXpath = "//span[@id='reportdate']"
-killRow = "//div[@class='report-overview-boss-box']//span[@class='report-overview-boss-kill']"
+loc_kill = "//span[@class='report-overview-boss-kill']/span[@class='kill']"
 
 
 # Summary tab
-summaryTab = "//a[@id='filter-summary-tab']"
+loc_summaryTab = "//a[@id='filter-summary-tab']"
 
 
 # Damage Done tab
-dmgDoneTab = "//a[@id='filter-damage-done-tab']"
+loc_dmgDoneTab = "//a[@id='filter-damage-done-tab']"
+
+
+# Buffs tab
+loc_buffsTab = "//a[@id='filter-buffs-tab']"
 
 
 # Deaths tab
-deathsTab = "//a[@id='filter-deaths-tab']"
-deathsTabTableHeader = "//table[@id='deaths-table-0']"
+loc_deathsTab = "//a[@id='filter-deaths-tab']"
+loc_deathsTabTableHeader = "//table[@id='deaths-table-0']"
 
 
 # Casts tab
-castsTab = "//a[@id='filter-casts-tab']"
-castsTabExtraFilter = "//ul[@id='filter-subtype-tabs']"
-castsBySourceOption = "//a[@id='by_source']"
+loc_castsTab = "//a[@id='filter-casts-tab']"
 loc_abilityUptime = "//table[@id='main-table-0']/tbody/tr[1]/td[3]"

@@ -6,14 +6,15 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException  
 
 
-# waits until the page's main table exists
+# waits until a page's main table exists. use this method before interacting with a table
 def wait_until_table_exists(driver):
     print("entering wait_until_table_exists")
-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, mainTableHeader)))
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, loc_mainTableHeader)))
     print("exiting wait_until_table_exists")
 
 
 # assumes a table is present
+# todo add exception handling for if a cell with the specified contents doesn't exist
 def click_cell_by_contents(driver, cellContents):
     print("entering click_cell_by_contents")
     driver.find_element(By.XPATH, "//table[@id='main-table-0']//*[contains(text(), '" + cellContents + "')]").click()
@@ -22,11 +23,12 @@ def click_cell_by_contents(driver, cellContents):
 
 # assumes a table is present
 # finds and returns the row number of the cell with the specified contents
+# todo add exception handling for if a cell with the specified contents doesn't exist
 def get_row_num_by_cell_contents(driver, cellContents):
     print("entering get_row_num_by_cell_contents with " + cellContents)
     
     # get all of the main table's rows
-    mainTableRows = driver.find_elements(By.XPATH, mainTableRow)
+    mainTableRows = driver.find_elements(By.XPATH, loc_mainTableRow)
     
     # search through the rows for the specified cell contents
     i = 1
@@ -44,21 +46,21 @@ def get_row_num_by_cell_contents(driver, cellContents):
 
 def get_fight_date(driver):
     print("entering get_fight_date")
-    fightDate = driver.find_element(By.XPATH, fightDateXpath).get_attribute("innerText")
+    fightDate = driver.find_element(By.XPATH, loc_fightDate).get_attribute("innerText")
     print("exiting get_fight_date with " + fightDate)
     return fightDate
 
 
 def get_boss_name(driver):
     print("entering get_boss_name")
-    bossName = driver.find_element(By.XPATH, bossNameXpath).get_attribute("innerText").replace(" Normal\n+","")
+    bossName = driver.find_element(By.XPATH, loc_bossName).get_attribute("innerText").replace(" Normal\n+","")
     print("exiting get_boss_name with " + bossName)
     return bossName
 
 
 def get_fight_duration(driver):
     print("entering get_fight_duration")
-    fightDur = driver.find_element(By.XPATH, fightDurXpath).get_attribute("innerText").strip("()")
+    fightDur = driver.find_element(By.XPATH, loc_fightDur).get_attribute("innerText").strip("()")
     print("exiting get_fight_duration with " + fightDur)
     return fightDur
 
@@ -97,16 +99,16 @@ def did_character_die(driver, charName):
     print("entering did_character_die")
     
     # the table on the Deaths tab has a different header from the other pages, so
-    # wait_until_table_exists() can't be used
-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, deathsTabTableHeader)))
+    # wait_until_table_exists() can't be used here
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, loc_deathsTabTableHeader)))
     
     try:
         if driver.find_element(By.XPATH, "//table[@id='deaths-table-0']//span[contains(text(),'" + charName + "')]"):
-            charDied = "true"
+            charDied = True
     except NoSuchElementException:
-        charDied = "false"
+        charDied = False
     
-    print("exiting did_character_die with " + charDied)
+    print("exiting did_character_die with " + str(charDied))
     return charDied
 
 
@@ -116,11 +118,11 @@ def was_ability_used(driver, abilityName):
     
     try:
         if driver.find_element(By.XPATH, "//table[@id='main-table-0']//*[contains(text(), '" + abilityName + "')]"):
-            abilityUsed = "true"
+            abilityUsed = True
     except NoSuchElementException:
-        abilityUsed = "false"
+        abilityUsed = False
     
-    print("exiting was_ability_used with " + abilityUsed)
+    print("exiting was_ability_used with " + str(abilityUsed))
     return abilityUsed
 
 
