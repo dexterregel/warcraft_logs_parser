@@ -22,6 +22,7 @@ dmgDoneTab = "//a[@id='filter-damage-done-tab']"
 
 # Deaths tab
 deathsTab = "//a[@id='filter-deaths-tab']"
+deathsTabTableHeader = "//table[@id='deaths-table-0']"
 
 
 # Casts tab

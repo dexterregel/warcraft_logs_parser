@@ -96,8 +96,12 @@ def get_dps(driver, charName):
 def did_character_die(driver, charName):
     print("entering did_character_die")
     
+    # the table on the Deaths tab has a different header from the other pages, so
+    # wait_until_table_exists() can't be used
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.XPATH, deathsTabTableHeader)))
+    
     try:
-        if driver.find_element(By.XPATH, "//table[@id='deaths-table-0']//*[contains(text(),'" + charName + "')]"):
+        if driver.find_element(By.XPATH, "//table[@id='deaths-table-0']//span[contains(text(),'" + charName + "')]"):
             charDied = "true"
     except NoSuchElementException:
         charDied = "false"

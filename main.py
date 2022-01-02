@@ -49,7 +49,6 @@ for num in range(3, numKills+3):
     
     # navigate to the Deaths tab and determine if the character died
     driver.find_element(By.XPATH, deathsTab).click()
-    wait_until_table_exists(driver)
     didCharDie = did_character_die(driver, charName)
     time.sleep(3)
     
