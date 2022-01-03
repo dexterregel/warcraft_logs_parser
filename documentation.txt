@@ -14,9 +14,9 @@ Information is not collected for wipes. The following stats are collected for ea
 Setting up the script:
 	Install any version of Python 3
 		Be sure to add Python to the PATH environment variable.	The install should ask about doing that for you
-	This script currently only works with Firefox. Download the appropriate version of its WebDriver from:
+	This script currently only works with Firefox. Install the latest version, then download the appropriate version of its WebDriver from:
 		https://github.com/mozilla/geckodriver/releases
- 	Place the WebDriver (the geckodriver.exe file) in Python's installation directory, e.g. C:\Program Files\Python310 (or another directory in the PATH environment variable, or just put it somewhere and at that location to PATH)
+ 	Place the WebDriver (the geckodriver.exe file) in Python's installation directory, e.g. C:\Program Files\Python310 (or another directory in the PATH environment variable, or just put it somewhere and add that location to PATH)
 	Install the selenium module by opening a command prompt and running:
 		python -m pip install selenium
 
@@ -29,3 +29,8 @@ Running the script:
 	For example:
 		python main.py https://classic.warcraftlogs.com/reports/RrkfdNx8p9hcWtGM Eighchbar
 	At the end of the script, a text file with the collected stats will be created in the same directory as the script files
+
+Known issues:
+    You'll occasionally get a TimeoutException because something on the page (usually the tables) didn't load, usually because requests are being made too quickly/the script is moving through the site too quickly. Just try rerunning the script, but if it keeps happening, increase sleepTime in main.py by a 1 or 2 then rerun
+    
+    get_ability_uptime and some other functions don't have any error handling yet. They assume you know what you're doing, e.g. if you want to know Faerie Fire's uptime, you better have used it or else get_ability_uptime won't find it on the page and will raise an exception. The current workaround for this is to check if it was used beforehand with was_ability_used, and if that doesn't find it, the script will just output "" for its spot in the text file 

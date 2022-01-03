@@ -11,6 +11,10 @@ from selenium.webdriver.support import expected_conditions as EC
 url = sys.argv[1]
 charName = sys.argv[2]
 
+
+# sleeps are present to avoid making too many requests too quickly (http 429)
+sleepTime = 3
+
 # open a browser and navigate to the provided log
 driver = webdriver.Firefox()
 driver.get(url)
@@ -28,7 +32,6 @@ overallFightStats = []
 
 # collect stats for each kill
 # skip the first two sections on the main page because they're not kills
-# the sleeps are present to avoid making too many requests too quickly (http 429)
 for num in range(1, numKills+1):
     
     fightStats = []
@@ -37,7 +40,7 @@ for num in range(1, numKills+1):
     driver.find_element(By.XPATH, "(" + loc_kill + ")[" + str(num) + "]").click()
     bossName = get_boss_name(driver)
     fightDur = get_fight_duration(driver)
-    time.sleep(2)
+    time.sleep(sleepTime)
     
     # navigate to the Damage Done tab and collect stats
     driver.find_element(By.XPATH, loc_dmgDoneTab).click()
@@ -45,17 +48,17 @@ for num in range(1, numKills+1):
     parse = get_parse(driver, charName)
     activeTime = get_active_time(driver, charName)
     dps = get_dps(driver, charName)
-    time.sleep(2)
+    time.sleep(sleepTime)
     
     # navigate to the Deaths tab and determine if the character died
     driver.find_element(By.XPATH, loc_deathsTab).click()
     didCharDie = did_character_die(driver, charName)
-    time.sleep(2)
+    time.sleep(sleepTime)
     
     # navigate to the Casts tab and collect stats
     driver.find_element(By.XPATH, loc_castsTab).click()
     wait_until_table_exists(driver)
-    time.sleep(2)
+    time.sleep(sleepTime)
     click_cell_by_contents(driver, charName)
     wait_until_table_exists(driver)
     wasBrezUsed = was_ability_used(driver, "Rebirth")
@@ -65,7 +68,7 @@ for num in range(1, numKills+1):
     wasFfUsed = was_ability_used(driver, "Faerie Fire")
     if wasFfUsed:
         ffUptime = get_ability_uptime(driver, "Faerie Fire")
-    time.sleep(2)
+    time.sleep(sleepTime)
     
     # add all stats to the stats list
     # note: if you're going to copy and past the stats into a spreadsheet, make sure the order of these appends matches the
@@ -95,7 +98,7 @@ for num in range(1, numKills+1):
     
     # return to the main page
     driver.get(url)
-    time.sleep(2)
+    time.sleep(sleepTime)
     
 driver.close()
 
